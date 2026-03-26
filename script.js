@@ -1,40 +1,105 @@
-const result = document.querySelector('.result')
-const humanScore = document.getElementById('human-score')
-const machineScore = document.getElementById('machine-score')
+const buttons = document.querySelectorAll("button")
+const result = document.getElementById("result")
 
-let humanScoreNumber = 0
-let machineScoreNumber = 0
+const humanScoreEl = document.getElementById("human-score")
+const machineScoreEl = document.getElementById("machine-score")
 
-const playHuman = (humanChoice) => {
+const humanChoiceEl = document.getElementById("human-choice")
+const machineChoiceEl = document.getElementById("machine-choice")
 
-    playTheGame(humanChoice, playMachine())
+let humanScore = 0
+let machineScore = 0
+
+// 🔊 SONS ONLINE
+const clickSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3")
+const winSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-game-level-completed-2059.mp3")
+const loseSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-player-losing-or-failing-2042.mp3")
+
+function playSound(sound) {
+  sound.currentTime = 0
+  sound.volume = 0.5
+  sound.play().catch(() => {})
 }
 
-const playMachine = () => {
-    const choices = ['rock', 'paper', 'scissors']
-    const randomNumber = Math.floor(Math.random() * 3)
-    
-    return choices[randomNumber]
+// 🎉 CONFETE
+function showConfetti() {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 1 }
+  })
 }
 
-const playTheGame = (human, machine) => {
-    
-    console.log('Humano: ' + human + "Maquina: " + machine)
+const emojiMap = {
+  rock: "✊",
+  paper: "🤚",
+  scissors: "✌️"
+}
 
-    if (human === machine) {
-        result.innerHTML = "Empate!"
-    }else if ((human === 'paper' && machine === 'rock') ||
-              (human === 'rock' && machine === 'scissors') ||
-              (human === 'scissors' && machine === 'paper')
-            ) {
-        humanScoreNumber++
-        humanScore.innerHTML = humanScoreNumber
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    playSound(clickSound)
+    playGame(button.dataset.choice)
+  })
+})
 
-        result.innerHTML = "Você Ganhou!"
-    }else {
-        machineScoreNumber++
-        machineScore.innerHTML = machineScoreNumber
+function playGame(humanChoice) {
+  const machineChoice = getMachineChoice()
 
-        result.innerHTML = "Voce perdeu para a Alexa!"
-    }
+  humanChoiceEl.textContent = emojiMap[humanChoice]
+  machineChoiceEl.textContent = "⏳"
+
+  animateChoice(humanChoiceEl)
+
+  setTimeout(() => {
+    machineChoiceEl.textContent = emojiMap[machineChoice]
+    animateChoice(machineChoiceEl)
+
+    checkResult(humanChoice, machineChoice)
+  }, 800)
+}
+
+function getMachineChoice() {
+  const choices = ["rock", "paper", "scissors"]
+  return choices[Math.floor(Math.random() * 3)]
+}
+
+function checkResult(human, machine) {
+  result.className = "result"
+
+  if (human === machine) {
+    result.textContent = "Empate!"
+    result.classList.add("draw")
+    return
+  }
+
+  if (
+    (human === "rock" && machine === "scissors") ||
+    (human === "paper" && machine === "rock") ||
+    (human === "scissors" && machine === "paper")
+  ) {
+    humanScore++
+    humanScoreEl.textContent = humanScore
+
+    result.textContent = "🔥 Você venceu!"
+    result.classList.add("win")
+    playSound(winSound)
+    showConfetti()
+
+  } else {
+    machineScore++
+    machineScoreEl.textContent = machineScore
+
+    result.textContent = "💀 Você perdeu!"
+    result.classList.add("lose")
+    playSound(loseSound)
+  }
+}
+
+function animateChoice(el) {
+  el.classList.add("animate")
+
+  setTimeout(() => {
+    el.classList.remove("animate")
+  }, 300)
 }

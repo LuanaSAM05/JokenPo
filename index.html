@@ -1,31 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevClub JokenPo</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JokenPô PRO</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>JokenPô</h1>
 
+<!-- 🎥 VÍDEO DE FUNDO -->
+<video autoplay muted loop id="bg-video">
+  <source src="video/video-verde.mp4" type="video/mp4">
+</video>
 
-        <div class="buttons">
-            <button id="rock" onclick="playHuman('rock')">&#x270A;</button>
-            <button id="paper" onclick="playHuman('paper')">&#x1F91A;</button>
-            <button id="scissors" onclick="playHuman('scissors')">&#x270C;</button>
-        </div>
+<div class="overlay"></div>
 
-        <p class="result"></p>
+<div class="container">
 
-        <p class="your-score">Sua Pontuação: <span id="human-score">0</span></p>
-        <p class="machine-score">Pontuação da Alexa: <span id="machine-score">0</span></p>
+  <h1>JokenPô</h1>
+  <h2>🧠 VS 🤖</h2>
+
+  <p class="subtitle">
+    Escolha sua jogada e desafie a máquina! <br>
+    Quem será o campeão?
+  </p>
+
+  <div class="battle">
+    <div class="player">
+      <h3>Você</h3>
+      <div id="human-choice" class="choice">❔</div>
     </div>
-    <script src="script.js"></script>
 
+    <div class="versus">VS</div>
+
+    <div class="machine">
+      <h3>Máquina</h3>
+      <div id="machine-choice" class="choice">❔</div>
+    </div>
+  </div>
+
+  <p id="result" class="result">Escolha sua jogada</p>
+
+  <div class="buttons">
+    <button data-choice="rock">✊</button>
+    <button data-choice="paper">🤚</button>
+    <button data-choice="scissors">✌️</button>
+  </div>
+
+  <div class="scoreboard">
+    <p>Você: <span id="human-score">0</span></p>
+    <p>Máquina: <span id="machine-score">0</span></p>
+  </div>
+
+</div>
+
+<!-- 🎉 CONFETE -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script src="script.js"></script>
 </body>
-
 </html>
