@@ -130,14 +130,69 @@ button:active {
   margin-top: 10px;
 }
 
-/* 📱 MOBILE */
-@media (max-width: 400px) {
-  .choice {
-    font-size: 45px;
+/* TEXTOS RESPONSIVOS */
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+/* ELEMENTOS FLEXÍVEIS */
+.choice {
+  font-size: clamp(40px, 6vw, 60px);
+}
+
+button {
+  font-size: clamp(20px, 3vw, 30px);
+}
+
+/* 📱 TABLET E MOBILE */
+@media (max-width: 768px) {
+
+  .container {
+    padding: 20px 15px;
+  }
+
+  .battle {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
   }
 
   button {
-    font-size: 24px;
-    padding: 10px;
+    width: 100%;
+  }
+
+  .subtitle {
+    margin-bottom: 40px;
+  }
+}
+
+/* 📱 MOBILE PEQUENO */
+@media (max-width: 400px) {
+
+  .choice {
+    font-size: 40px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
   }
 }

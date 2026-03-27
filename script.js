@@ -10,17 +10,6 @@ const machineChoiceEl = document.getElementById("machine-choice")
 let humanScore = 0
 let machineScore = 0
 
-// 🔊 SONS ONLINE
-const clickSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3")
-const winSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-game-level-completed-2059.mp3")
-const loseSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-player-losing-or-failing-2042.mp3")
-
-function playSound(sound) {
-  sound.currentTime = 0
-  sound.volume = 0.5
-  sound.play().catch(() => {})
-}
-
 // 🎉 CONFETE
 function showConfetti() {
   confetti({
